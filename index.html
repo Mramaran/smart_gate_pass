@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIT Smart Gate Pass | Project Proposal</title>
+    <style>
+        /* --- Global Styles & Fonts --- */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary-color: #003366; /* Deep Blue */
+            --secondary-color: #f0c419; /* Yellow */
+            --background-color: #f4f7f6;
+            --text-color: #333;
+            --light-gray: #e9ecef;
+            --white: #ffffff;
+            --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 0 2rem;
+            overflow: hidden;
+        }
+        
+        h1, h2, h3 {
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 2rem; color: var(--primary-color); }
+        h3 { font-size: 1.5rem; }
+
+        p { margin-bottom: 1rem; }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        /* --- Header & Navigation --- */
+        .main-header {
+            background: var(--white);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        .main-header .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        /* --- Sections --- */
+        section {
+            padding: 4rem 0;
+        }
+
+        section.hero {
+            background: linear-gradient(rgba(0, 51, 102, 0.8), rgba(0, 51, 102, 0.8)), url('https://via.placeholder.com/1500x800.png?text=CIT+Campus') center center/cover no-repeat;
+            color: var(--white);
+            text-align: center;
+            padding: 6rem 0;
+        }
+
+        .hero h1 {
+            color: var(--white);
+        }
+        
+        .hero .subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            max-width: 700px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        /* --- Problem & Solution Section --- */
+        .problem-solution-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .problem-solution-grid img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+        }
+
+        /* --- Features Section --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .feature-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-card .icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        /* --- Tech Stack Section --- */
+        #tech-stack {
+            background: var(--light-gray);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tech-item {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .tech-item h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- Timeline Section --- */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--secondary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+        }
+        .timeline-item.left { left: 0; }
+        .timeline-item.right { left: 50%; }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: var(--white);
+            border: 4px solid var(--secondary-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .right::after { left: -10px; }
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: var(--white);
+            position: relative;
+            border-radius: 6px;
+            box-shadow: var(--card-shadow);
+        }
+        .timeline-content h3 { font-size: 1.2rem; }
+
+        /* --- Team Section --- */
+        #team {
+            background: var(--light-gray);
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        .team-member {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+        }
+        .team-member h3 { color: var(--primary-color); }
+        .team-member ul { list-style-position: inside; }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* --- Responsive Design --- */
+        @media(max-width: 768px) {
+            .problem-solution-grid, .team-grid {
+                grid-template-columns: 1fr;
+            }
+            .timeline::after { left: 15px; }
+            .timeline-item { width: 100%; padding-left: 50px; padding-right: 15px; }
+            .timeline-item.right { left: 0%; }
+            .timeline-item::after { left: 5px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">CIT Smart Gate Pass</div>
+            <nav>
+                </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>CIT Smart Gate Pass</h1>
+            <p class="subtitle">An Automated Student Entry-Exit and Outing Management System to create a smarter, safer campus.</p>
+            <a href="#problem" class="btn">Learn More</a>
+        </div>
+    </section>
+
+    <section id="problem">
+        <div class="container">
+            <div class="section-title">
+                <h2>The Challenge: Manual & Inefficient</h2>
+                <p>The current handwritten register system at CIT leads to long queues, delays, and safety risks.</p>
+            </div>
+            <div class="problem-solution-grid">
+                <div>
+                    <h3>Current Process Issues</h3>
+                    <ul>
+                        <li><strong>Long Queues:</strong> Overcrowding at entry and exit points during peak hours.</li>
+                        <li><strong>Increased Workload:</strong> Heavy burden on security staff for manual verification.</li>
+                        <li><strong>Lack of Real-time Tracking:</strong> Difficult to know student locations in case of emergencies.</li>
+                        <li><strong>Safety Gaps:</strong> Delayed notifications to parents and tutors if students don't return on time.</li>
+                    </ul>
+                </div>
+                <div>
+                    <img src="https://via.placeholder.com/500x300.png?text=Students+in+Queue" alt="Students waiting at the gate">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="solution" style="background-color: var(--light-gray);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Solution: Automated & Secure</h2>
+                <p>A technology-driven platform to replace manual registers with a fast, reliable, and secure digital system.</p>
+            </div>
+            <div class="problem-solution-grid">
+                <div>
+                    <img src="https://via.placeholder.com/500x300.png?text=Smart+Gate+Pass+System" alt="Barcode scanner and computer system">
+                </div>
+                <div>
+                    <h3>How It Works</h3>
+                    <p>Using Bar-coded student ID cards, students simply scan their IDs at the gate to automatically log their entry or exit. The system stores these records in a central database, providing accurate, timestamped logs that can be easily searched and audited.</p>
+                    <a href="#features" class="btn">View Key Features</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Innovative Features</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="icon">✓</div>
+                    <h3>Complete Automation</h3>
+                    <p>Converts the entire gate-pass and outing process into a fully digital workflow, eliminating paper registers.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">⏱️</div>
+                    <h3>Instant Verification</h3>
+                    <p>Security staff can verify a student's approval status in seconds right at the gate, reducing manual checks.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🔔</div>
+                    <h3>Automated Safety Alerts</h3>
+                    <p>Sends automatic SMS/email notifications to tutors and parents if a student fails to return on time.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">💻</div>
+                    <h3>Role-Based Dashboards</h3>
+                    <p>Secure, separate access for students, wardens, security, and administrators to manage their specific tasks.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">📈</div>
+                    <h3>Audit-Ready Reporting</h3>
+                    <p>Generates clean, searchable logs and downloadable reports for compliance, analysis, and record-keeping.</p>
+                </div>
+                 <div class="feature-card">
+                    <div class="icon">⚙️</div>
+                    <h3>Low-Cost & Scalable</h3>
+                    <p>Uses affordable hardware like barcode scanners and common software frameworks for easy implementation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tech-stack">
+        <div class="container">
+            <div class="section-title">
+                <h2>Technology Stack</h2>
+            </div>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <h4>Hardware Interfaces</h4>
+                    <p>USB Barcode Scanner, Computer System, Monitor for live display.</p>
+                </div>
+                <div class="tech-item">
+                    <h4>Data Processing</h4>
+                    <p><strong>Python:</strong> For hardware integration, data handling, and backend logic.</p>
+                </div>
+                <div class="tech-item">
+                    <h4>Database & Storage</h4>
+                    <p><strong>SQLite / MySQL:</strong> To store student records, timestamps, and IN/OUT status logs.</p>
+                </div>
+                <div class="tech-item">
+                    <h4>Security & Access</h4>
+                    <p>Locally secured access on an authorized PC with password protection and data backups.</p>
+                </div>
+                 <div class="tech-item">
+                    <h4>Notifications & Alerts</h4>
+                    <p>On-screen pop-ups for security and automated SMS/Email alerts for parents & tutors.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="timeline">
+        <div class="container">
+            <div class="section-title">
+                <h2>Project Timeline</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>Month 1: System Design & Setup</h3>
+                        <p>Finalize architecture, design database schema, and set up the barcode scanner with a basic Python script.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>Month 2: Core Backend Development</h3>
+                        <p>Implement the primary logic for scanning, logging entries/exits, and developing the IN/OUT tracking system.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>Month 3: Module Development</h3>
+                        <p>Build the security dashboard, admin panel for reports, and integrate parent/tutor notification systems (SMS/Email).</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>Month 4: Testing & Deployment</h3>
+                        <p>Conduct full-scale testing, fix bugs, deploy the system on a local server, and prepare final documentation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="team">
+        <div class="container">
+            <div class="section-title">
+                <h2>The Team</h2>
+            </div>
+            <div class="team-grid">
+                <div class="team-member">
+                    <h3>Thirumaran S L</h3>
+                    <p><strong>Skills/Expertise:</strong> Python programming, IoT integration, basic AI/ML applications, data security techniques, and problem-solving.</p>
+                    <p><strong>Key Projects:</strong> Depression Detector (IoT+AI), Password Generator, Stego Hide for data security.</p>
+                </div>
+                <div class="team-member">
+                    <h3>Kiruthika K</h3>
+                    <p><strong>Skills/Expertise:</strong> Python programming, IoT integration, sensor interfacing, and database management.</p>
+                    <p><strong>Key Projects:</strong> MineSense (smart helmet for miner safety), Smart Grocery (inventory management).</p>
+                </div>
+            </div>
+            <div style="text-align:center; margin-top: 2rem;">
+                <h4><strong>Faculty Supervisor:</strong> Ms. K. Kalaivani M.E., Assistant Professor</h4>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 CIT Smart Gate Pass Project | Coimbatore Institute of Technology</p>
+        </div>
+    </footer>
+
+</body>
+</html>

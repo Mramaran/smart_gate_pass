@@ -25,7 +25,10 @@ def setup_database():
     )''')
     students_to_add = [
         ('2403717624321055', 'Thirumaran S L', '9363915238'),
-        ('2403717624322024', 'Kiruthika K', '7200239667')
+        ('2403717624322024', 'Kiruthika K', '7200239667'),
+        ('2403717624321007','Bala Dharunesh','7458961245'),
+        ('2403717624322008', 'Bharathy K','945187452'),
+        ('2403717624321033', 'Nirmal Raj','7272239426')
     ]
     cursor.executemany('INSERT OR IGNORE INTO students (roll_no, name, phone_no) VALUES (?, ?, ?)', students_to_add)
     conn.commit()
@@ -136,29 +139,55 @@ def log_student_movement(roll_no):
     print("-" * 60)
     conn.commit()
     conn.close()
+def view_database():
+    """Displays all records from students, gate_logs, and outing_permissions tables."""
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+
+    print("\n--- Students Table ---")
+    for row in cursor.execute("SELECT * FROM students"):
+        print(row)
+
+    print("\n--- Gate Logs Table ---")
+    for row in cursor.execute("SELECT * FROM gate_logs"):
+        print(row)
+
+    print("\n--- Outing Permissions Table ---")
+    for row in cursor.execute("SELECT * FROM outing_permissions"):
+        print(row)
+
+    conn.close()
+    print("-" * 40)
 
 def main():
     """Main function to run the gate pass system."""
     setup_database()
-
     print("\n--- CIT Smart Gate Pass System ---")
     print("Commands:")
     print("  'request <roll_no>' - Student requests permission")
     print("  'approve <roll_no>' - Warden approves permission")
-    print("  'status <roll_no>'  - Check student's current status (NEW)")
+    print("  'status <roll_no>'  - Check student's current status")
+    print("  'viewdb'            - View all database tables")
     print("  '<roll_no>'         - Student scans ID at the gate")
     print("  'exit'              - Close the system\n")
 
     while True:
         user_input = input("Enter command or Scan ID: ").strip()
+        
+        # --- ROBUST FIX: IGNORE ANY EXECUTION COMMAND ---
+        # This more general check works for main.py, tempCodeRunnerFile.py, etc.
+        if '.py' in user_input and 'python' in user_input:
+            continue # Skips the rest of the loop and asks for input again
+
         parts = user_input.split()
         if not parts: continue
         command = parts[0].lower()
 
         if command == 'exit':
             print("Shutting down system."); break
-        
-        if command in ['request', 'approve', 'status'] and len(parts) == 2:
+        if command == 'viewdb':
+            view_database()
+        elif command in ['request', 'approve', 'status'] and len(parts) == 2:
             roll_no = parts[1]
             if command == 'request': request_permission(roll_no)
             elif command == 'approve': approve_permission(roll_no)
